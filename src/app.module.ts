@@ -5,17 +5,21 @@ import { JoiValidationSchema } from './config/joi.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
+import { SeedModule } from './seed/seed.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-
     ConfigModule.forRoot({
       load: [EnvConfiguration],
       validationSchema: JoiValidationSchema
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService)=>({
+      useFactory: (configService: ConfigService) => ({
         url: configService.get('postgres.postgresuri'),
         type: 'postgres',
         autoLoadEntities: true,
@@ -24,7 +28,13 @@ import { CommonModule } from './common/common.module';
       inject: [ConfigService]
     }),
     ProductsModule,
-    CommonModule
+    CommonModule,
+    SeedModule,
+    FilesModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
+    AuthModule,
 
 
     // TypeOrmModule.forRoot({
