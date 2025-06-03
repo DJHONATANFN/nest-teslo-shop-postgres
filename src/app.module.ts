@@ -10,6 +10,7 @@ import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { MessagesWsModule } from './messages-ws/messages-ws.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { AuthModule } from './auth/auth.module';
       rootPath: join(__dirname, '..', 'public'),
     }),
     AuthModule,
+    MessagesWsModule,
 
 
     // TypeOrmModule.forRoot({
