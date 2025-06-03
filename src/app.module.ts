@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EnvConfiguration } from './config/env.config';
-import { JoiValidationSchema } from './config/joi.validation';
+//import { JoiValidationSchema } from './config/joi.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
@@ -16,7 +16,7 @@ import { MessagesWsModule } from './messages-ws/messages-ws.module';
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfiguration],
-      validationSchema: JoiValidationSchema
+      //validationSchema: JoiValidationSchema
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
